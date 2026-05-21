@@ -1,0 +1,26 @@
+# Generated outputs — never commit
+outputs/
+webapp/outputs/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Node / Next.js
+webapp/node_modules/
+webapp/.next/
+
+# Environment secrets
+.env
+.env.local
+*.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# claude md files
+CLAUDE.md

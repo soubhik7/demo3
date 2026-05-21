@@ -1,0 +1,144 @@
+#-- start of API autodiscovery
+api:
+  autodiscovery:
+    id: ""
+#-- end of API autodiscovery
+
+#-- start of HTTPS and MarsLogger configuration - avoid changing in this section
+https:
+  # if there are multiple listener then give appropriate name instead of just listener
+  main-listener:
+    tls:
+      keyStore:
+        location: "certificates/dev.anypoint.mars.api.jks"
+  # if there are multiple requester then give appropriate name instead of just requester
+  internalcall-requester:
+    host: "dev.internal-api.effem.com"
+
+#-- start of MarsLogger properties ---
+mars.logger.uri: "https://${https.internalcall-requester.host}:443/splunkmessageloggerv3dev-ext/v1.0/api/marslogger"
+#-- end of MarsLogger properties ---
+
+#-- start of Solace configuration
+solace:
+  broker:
+    vpn: "marsdev-saz-use2-glb03"
+    host: "tcps://marsglbdev03.internal-messaging.effem.com"
+
+#-- end of Solace configuration
+
+#-- start of Translations (Map) configuration
+translationService:
+  basepath: "/common-integration-configdev/v1/translations/"
+#-- end of Translations (Map) configuration
+
+#-- start of Content Based Routing configuration
+routingService:
+  basepath: "/common-integration-configdev/v1"
+
+# content based routing properties - remove routing modes that you do not use in your project
+smartrouting:
+  logging: "true"
+wildcardrouting:
+  logging: "true"
+#-- end of Content Based Routing configuration
+
+#Country specific nav NIP configurations
+nav:
+common:
+   cert.path : "certificates/nav-nonprod.jks" #common jks file for all NAV ceritificates in azr-wew5469.mars-ad.net, azr-wew5538.mars-ad.net, azr-wew5679.mars-ad.net, azr-saw5443.mars-ad.net
+czechia:
+   protocol: "https"
+   host: "azr-wew5469.mars-ad.net"
+   port: "7124"
+   username: "SVC_UAT_MULESOFT"
+   domain: "mars-ad.net"
+   company: "Company(UAT - Royal Canin Czech)"
+   service: "InterfaceWebServices"
+   soap.port: "7124"
+   soap.path: "/sop_eu6_uat_01/WS/UAT - Royal Canin Czech/Codeunit/InterfaceWebServices?wsdl"
+   routing.code: "NAV_FM_IN_UAT_CZE"
+   transactiontype:
+     sal_008: "SHIPMENT"
+     sal_011: "SALES_RETURN_RECEIPT"
+     pur_019: "RECADV"
+     man_001: "FINISHED_GOOD"
+     inv_002: "RECLASSMENT"
+     inv_003: "INVENTORY"
+     inv_004: "STOCK_ADJUSTMENT"
+unitedkingdom:
+   protocol: "https"
+   host: "azr-wew5538.mars-ad.net"
+   port: "7124"
+   username: "SVC_UAT_MULESOFT"
+   domain: "mars-ad.net"
+   company: "Company(UAT - Royal Canin IKA)"
+   service: "InterfaceWebServices"
+   soap.port: "7124"
+   soap.path: "/sop_eu8_uat_01/WS/UAT - Royal Canin IKA/Codeunit/InterfaceWebServices?wsdl"
+   routing.code: "NAV_FM_IN_UAT_IKA"
+   transactiontype:
+     sal_008: "SHIPMENT"
+     pur_019: "RECADV"
+     inv_002: "RECLASSMENT"
+     inv_003: "INVENTORY"
+     inv_004: "STOCK_ADJUSTMENT"
+poland:
+   protocol: "https"
+   host: "azr-wew5679.mars-ad.net"
+   port: "7124"
+   username: "SVC_UAT_MULESOFT"
+   domain: "mars-ad.net"
+   company: "Company(UAT - RC Poland Distrib)"
+   service: "InterfaceWebServices"
+   soap.port: "7124"
+   soap.path: "/sop_pol_uat_01/WS/UAT - RC Poland Distrib/Codeunit/InterfaceWebServices?wsdl"
+   routing.code: "NAV_FM_IN_UAT_RNID"
+   transactiontype:
+     sal_008: "SHIPMENT"
+     sal_011: "SALES_RETURN_RECEIPT"
+     pur_019: "RECADV"
+     man_001: "FINISHED_GOOD"
+     inv_002: "RECLASSMENT"
+     inv_003: "INVENTORY"
+     inv_004: "STOCK_ADJUSTMENT"
+slovakia:
+   protocol: "https"
+   host: "azr-wew5469.mars-ad.net"
+   port: "7124"
+   username: "SVC_UAT_MULESOFT"
+   domain: "mars-ad.net"
+   company: "Company(UAT - Royal Canin Slovakia)"
+   service: "InterfaceWebServices"
+   soap.port: "7124"
+   soap.path: "/sop_eu6_uat_01/WS/UAT - Royal Canin Slovakia/Codeunit/InterfaceWebServices?wsdl"
+   routing.code: "NAV_FM_IN_UAT_SVK"
+   transactiontype:
+     sal_008: "SHIPMENT"
+     sal_011: "SALES_RETURN_RECEIPT"
+     pur_019: "RECADV"
+     man_001: "FINISHED_GOOD"
+     inv_002: "RECLASSMENT"
+     inv_003: "INVENTORY"
+     inv_004: "STOCK_ADJUSTMENT"
+#Added SouthAfrica for ALS partner
+southafrica:
+   protocol: "https"
+   host: "azr-saw5443.mars-ad.net"
+   port: "7124"
+   username: "SVC_UAT_MULESOFT"
+   domain: "mars-ad.net"
+   company: "Company(UAT - RC South Africa)"
+   service: "InterfaceWebServices"
+   soap.port: "7124"
+   soap.path: "/sop_zaf_uat_01/WS/UAT - RC South Africa/Codeunit/InterfaceWebServices?wsdl"
+   routing.code: "NAV_ALS_IN_UAT_ZAD"
+   transactiontype:
+     sal_008: "SHIPMENT"
+     sal_011: "SALES_RETURN_RECEIPT"
+     pur_019: "RECADV"
+     inv_002: "RECLASSMENT"
+     inv_003: "INVENTORY"
+     inv_004: "STOCK_ADJUSTMENT"
+     wms_004: "TO_SHIP_CONFIRMATION"
+     wms_005: "TO_REC_CONFIRMATION"

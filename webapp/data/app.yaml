@@ -1,0 +1,232 @@
+#-- start of project specific properties - always adjust these properties to reflect your project requirements -------
+api:
+  applicationType: "internal"
+  version: "v1"
+application:
+  name: "petc-rc-navision-3plpnp-sys"
+#-- end of project specific properties ---
+
+#-- start of MarsLogger properties ---
+mars.logger:
+  connection.timeout: "15000"
+  deployment.server.name: "Cloudhub"
+  suppress.stopwatch.local.logging: "true"
+  stopwatch.no: "6"
+  file:
+    path: "/tmp"
+    max.size: "350"
+    max.entries: "60"
+    freq: "10"
+  additional.prop.keys:
+    scope: "Scope"
+    direction: "Direction"
+    destination: "Destination"
+    processingstate: "ProcessingState"
+    partnerid: "PartnerID"
+    country: "Country"
+    terminalstate: "TerminalState"
+    navMarket: "navMarket"
+  additional.prop.values:
+    scope: "3PLPnP"
+    direction: "FromWMS"
+    destination: "OneNavision"
+    terminalstate: "Completed"
+    processingstate:
+      consumed: "Consumed"
+      transformed: "Transformed"
+      delivered: "Delivered"
+      processed: "Processed"
+#-- end of MarsLogger properties ---
+
+#-- generic properties start here, from this line down change only when it is justified by your business case ----
+https:
+  main-listener:
+    host: "0.0.0.0"
+    port: "8092"
+    basepath: "/${api.version}/*"
+    connection:
+      timeout: "30000"
+    tls:
+      version: "TLSv1.1,TLSv1.2"
+  internalcall-requester:
+    port: "443"
+    response:
+      timeout: "30000"
+      reconnect:
+        frequency: "1000"
+        attempts: "2"
+#-- end of generic properties
+
+#-- start of Solace Configuration ----
+solace:
+  subscriber:
+    ack.windowSize: "20"
+    connectRetries: "-1"
+    reconnectRetries: "-1"
+    reconnectRetryWaitInMillis: "2000"
+    connectRetriesPerHost: "-1"
+  publisher:
+    connectRetries: "2"
+    reconnectRetries: "2"
+    reconnectRetryWaitInMillis: "2000"
+    errorType: "SOLACE:CONNECTIVITY"
+  dmqReprocessing:
+    frequencyMins: "15"
+    fetchSize: "10"
+  listener.reconnection.frequency_sec: "15"
+  consume:
+    timeout_sec: "5"
+  despatchstock:
+    queue: "q-petc-rc-navision-3plpnp-sys-despatchstock"
+    dmq: "dmq-petc-rc-navision-3plpnp-sys-despatchstock"
+  sourcingstock:
+    queue: "q-petc-rc-navision-3plpnp-sys-sourcingstock"
+    dmq: "dmq-petc-rc-navision-3plpnp-sys-sourcingstock"
+  returnstock:
+    queue: "q-petc-rc-navision-3plpnp-sys-returnstock"
+    dmq: "dmq-petc-rc-navision-3plpnp-sys-returnstock"
+  stockmovement:
+    queue: "q-petc-rc-navision-3plpnp-sys-stockmovement"
+    dmq: "dmq-petc-rc-navision-3plpnp-sys-stockmovement"
+
+recoverable:
+  error:
+    types: "HTTP:BAD_REQUEST,HTTP:BAD_GATEWAY,HTTP:GATEWAY_TIMEOUT,HTTP:CLIENT_SECURITY,HTTP:CONNECTIVITY,HTTP:FORBIDDEN,HTTP:NOT_ACCEPTABLE,HTTP:INTERNAL_SERVER_ERROR,HTTP:RETRY_EXHAUSTED,HTTP:SECURITY,HTTP:SERVICE_UNAVAILABLE,HTTP:TIMEOUT,HTTP:TOO_MANY_REQUESTS,HTTP:UNAUTHORIZED,SOLACE:GENERIC_ERROR,SOLACE:RETRY_EXHAUSTED,SOLACE:INVALID_CONFIGURATION,SOLACE:CONNECTIVITY,SOLACE:SESSION_RECOVER,SOLACE:INVALID_ENDPOINT"
+#-- end of Solace Configuration
+
+#-- start of Translations (Map) configuration
+translation:
+  response:
+    cache:
+      maxEntries: "1000"
+      ttlMinutes: "240"
+      expirationIntervalMinutes: "15"
+  receiverName: "${application.name}"
+  schema: "INTERNAL_TO_EXTERNAL"
+#-- end of Translations (Map) configuration
+
+navision.connection.timeout: "300000"
+navision:
+  #Comma separated list of valid countries for routing to navision
+  validCountriesList: "cz,sk,pl,eka,za"
+  instance:
+    cz: "czechia"
+    sk: "slovakia"
+    pl: "poland"
+    eka: "unitedkingdom"
+    za: "southafrica"
+  invalidList: " is not from valid list ["
+
+messageType:
+  despatchStock: "despatchStock"
+  sourcingStock: "sourcingStock"
+  returnStock: "returnStock"
+  stockMovement: "stockMovement"
+
+confirm.receipt: "false"
+
+#-- start of API autodiscovery
+api:
+  autodiscovery:
+    id: ""
+#-- end of API autodiscovery
+
+#Country specific nav NIP configurations
+nav:
+common:
+   cert.path : "certificates/nav-nonprod.jks" #common jks file for all NAV ceritificates in azr-wew5469.mars-ad.net, azr-wew5538.mars-ad.net, azr-wew5679.mars-ad.net, azr-saw5443.mars-ad.net
+czechia:
+   protocol: "https"
+   host: "azr-wew5469.mars-ad.net"
+   port: "7124"
+   username: "SVC_UAT_MULESOFT"
+   domain: "mars-ad.net"
+   company: "Company(UAT - Royal Canin Czech)"
+   service: "InterfaceWebServices"
+   soap.port: "7124"
+   soap.path: "/sop_eu6_uat_01/WS/UAT - Royal Canin Czech/Codeunit/InterfaceWebServices?wsdl"
+   routing.code: "NAV_FM_IN_UAT_CZE"
+   transactiontype:
+     sal_008: "SHIPMENT"
+     sal_011: "SALES_RETURN_RECEIPT"
+     pur_019: "RECADV"
+     man_001: "FINISHED_GOOD"
+     inv_002: "RECLASSMENT"
+     inv_003: "INVENTORY"
+     inv_004: "STOCK_ADJUSTMENT"
+unitedkingdom:
+   protocol: "https"
+   host: "azr-wew5538.mars-ad.net"
+   port: "7124"
+   username: "SVC_UAT_MULESOFT"
+   domain: "mars-ad.net"
+   company: "Company(UAT - Royal Canin IKA)"
+   service: "InterfaceWebServices"
+   soap.port: "7124"
+   soap.path: "/sop_eu8_uat_01/WS/UAT - Royal Canin IKA/Codeunit/InterfaceWebServices?wsdl"
+   routing.code: "NAV_FM_IN_UAT_IKA"
+   transactiontype:
+     sal_008: "SHIPMENT"
+     pur_019: "RECADV"
+     inv_002: "RECLASSMENT"
+     inv_003: "INVENTORY"
+     inv_004: "STOCK_ADJUSTMENT"
+poland:
+   protocol: "https"
+   host: "azr-wew5679.mars-ad.net"
+   port: "7124"
+   username: "SVC_UAT_MULESOFT"
+   domain: "mars-ad.net"
+   company: "Company(UAT - RC Poland Distrib)"
+   service: "InterfaceWebServices"
+   soap.port: "7124"
+   soap.path: "/sop_pol_uat_01/WS/UAT - RC Poland Distrib/Codeunit/InterfaceWebServices?wsdl"
+   routing.code: "NAV_FM_IN_UAT_RNID"
+   transactiontype:
+     sal_008: "SHIPMENT"
+     sal_011: "SALES_RETURN_RECEIPT"
+     pur_019: "RECADV"
+     man_001: "FINISHED_GOOD"
+     inv_002: "RECLASSMENT"
+     inv_003: "INVENTORY"
+     inv_004: "STOCK_ADJUSTMENT"
+slovakia:
+   protocol: "https"
+   host: "azr-wew5469.mars-ad.net"
+   port: "7124"
+   username: "SVC_UAT_MULESOFT"
+   domain: "mars-ad.net"
+   company: "Company(UAT - Royal Canin Slovakia)"
+   service: "InterfaceWebServices"
+   soap.port: "7124"
+   soap.path: "/sop_eu6_uat_01/WS/UAT - Royal Canin Slovakia/Codeunit/InterfaceWebServices?wsdl"
+   routing.code: "NAV_FM_IN_UAT_SVK"
+   transactiontype:
+     sal_008: "SHIPMENT"
+     sal_011: "SALES_RETURN_RECEIPT"
+     pur_019: "RECADV"
+     man_001: "FINISHED_GOOD"
+     inv_002: "RECLASSMENT"
+     inv_003: "INVENTORY"
+     inv_004: "STOCK_ADJUSTMENT"
+#Added SouthAfrica for ALS partner
+southafrica:
+   protocol: "https"
+   host: "azr-saw5443.mars-ad.net"
+   port: "7124"
+   username: "SVC_UAT_MULESOFT"
+   domain: "mars-ad.net"
+   company: "Company(UAT - RC South Africa)"
+   service: "InterfaceWebServices"
+   soap.port: "7124"
+   soap.path: "/sop_zaf_uat_01/WS/UAT - RC South Africa/Codeunit/InterfaceWebServices?wsdl"
+   routing.code: "NAV_ALS_IN_UAT_ZAD"
+   transactiontype:
+     sal_008: "SHIPMENT"
+     sal_011: "SALES_RETURN_RECEIPT"
+     pur_019: "RECADV"
+     inv_002: "RECLASSMENT"
+     inv_003: "INVENTORY"
+     inv_004: "STOCK_ADJUSTMENT"
+     wms_004: "TO_SHIP_CONFIRMATION"
+     wms_005: "TO_REC_CONFIRMATION"

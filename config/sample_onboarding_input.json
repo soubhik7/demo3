@@ -1,0 +1,69 @@
+{
+  "_comment": "3PL Inbound Onboarding Input — fill in all fields and pass to patch_config.py",
+
+  "partner_comment": "Added France (SPL) for SPL partner",
+
+  "country_key":  "france",
+  "country_code": "fr",
+
+  "nav": {
+    "protocol": "https",
+    "host": "azr-xxx1234.mars-ad.net",
+    "port": "7124",
+    "username": "SVC_UAT_MULESOFT",
+    "domain": "mars-ad.net",
+    "company": "Company(UAT - Royal Canin France)",
+    "service": "InterfaceWebServices",
+    "soap_port": "7124",
+    "soap_path": "/sop_fra_uat_01/WS/UAT - Royal Canin France/Codeunit/InterfaceWebServices?wsdl",
+    "routing_code": "NAV_FM_IN_UAT_FRA",
+    "use_common_cert": true,
+
+    "_transaction_types_note": "Set enabled:true for each transaction type supported by this country.",
+    "transaction_types": {
+      "sal_008": { "enabled": true,  "type": "SHIPMENT" },
+      "sal_011": { "enabled": true,  "type": "SALES_RETURN_RECEIPT" },
+      "pur_019": { "enabled": true,  "type": "RECADV" },
+      "man_001": { "enabled": false, "type": "FINISHED_GOOD" },
+      "inv_002": { "enabled": true,  "type": "RECLASSMENT" },
+      "inv_003": { "enabled": true,  "type": "INVENTORY" },
+      "inv_004": { "enabled": true,  "type": "STOCK_ADJUSTMENT" },
+      "wms_004": { "enabled": false, "type": "TO_SHIP_CONFIRMATION" },
+      "wms_005": { "enabled": false, "type": "TO_REC_CONFIRMATION" }
+    }
+  },
+
+  "_nav_tst_note": "TST-specific NAV server overrides. host/company/soap_path/routing_code are required; others fall back to nav values above.",
+  "nav_tst": {
+    "host": "azr-xxx1234-tst.mars-ad.net",
+    "company": "Company(TST - Royal Canin France)",
+    "soap_path": "/sop_fra_tst_01/WS/TST - Royal Canin France/Codeunit/InterfaceWebServices?wsdl",
+    "routing_code": "NAV_FM_IN_TST_FRA"
+  },
+
+  "_nav_prod_note": "PROD-specific overrides. Omit this section entirely if PROD details are not yet available.",
+  "nav_prod": {
+    "host": "azr-xxx1234-prod.mars-ad.net",
+    "company": "Company(PROD - Royal Canin France)",
+    "soap_path": "/sop_fra_prd_01/WS/PROD - Royal Canin France/Codeunit/InterfaceWebServices?wsdl",
+    "routing_code": "NAV_FM_IN_PRD_FRA"
+  },
+
+  "translation": {
+    "_note": "receiver_name = BTP ClientID = Solace 3PL Partner ID — obtained from BTP provisioning step",
+    "receiver_name": "petc-rc-navision-3plspl-sys",
+
+    "message_types": ["despatchStock"],
+
+    "_combos_note": "Each plant/customer combination this 3PL handles.",
+    "source_destination_combinations": [
+      { "value_from": "PLANT-FR1-PLANT-FR2",    "value_to": "spl_001" },
+      { "value_from": "PLANT-FR1-CUSTOMER-FR3", "value_to": "spl_002" }
+    ],
+
+    "_uom_note": "Unit of measure mappings: internal Mars UOM -> 3PL UOM",
+    "uom_mappings": [
+      { "value_from": "EA", "value_to": "UNIT" }
+    ]
+  }
+}
