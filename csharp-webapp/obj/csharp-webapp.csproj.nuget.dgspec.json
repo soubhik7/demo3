@@ -1,35 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\SoubhikMukhopadhyay\\source\\repos\\ais-operations\\OperationService2\\3pl-automation\\csharp-webapp\\csharp-webapp.csproj": {}
+    "/Users/soubhik/demo3/demo3/csharp-webapp/csharp-webapp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\SoubhikMukhopadhyay\\source\\repos\\ais-operations\\OperationService2\\3pl-automation\\csharp-webapp\\csharp-webapp.csproj": {
+    "/Users/soubhik/demo3/demo3/csharp-webapp/csharp-webapp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\SoubhikMukhopadhyay\\source\\repos\\ais-operations\\OperationService2\\3pl-automation\\csharp-webapp\\csharp-webapp.csproj",
+        "projectUniqueName": "/Users/soubhik/demo3/demo3/csharp-webapp/csharp-webapp.csproj",
         "projectName": "OnboardingApp",
-        "projectPath": "C:\\Users\\SoubhikMukhopadhyay\\source\\repos\\ais-operations\\OperationService2\\3pl-automation\\csharp-webapp\\csharp-webapp.csproj",
-        "packagesPath": "C:\\Users\\SoubhikMukhopadhyay\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\SoubhikMukhopadhyay\\source\\repos\\ais-operations\\OperationService2\\3pl-automation\\csharp-webapp\\obj\\",
+        "projectPath": "/Users/soubhik/demo3/demo3/csharp-webapp/csharp-webapp.csproj",
+        "packagesPath": "/Users/soubhik/.nuget/packages/",
+        "outputPath": "/Users/soubhik/demo3/demo3/csharp-webapp/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\SoubhikMukhopadhyay\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/soubhik/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {}
           }
@@ -44,10 +39,11 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "11.0.100"
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "imports": [
             "net461",
@@ -60,6 +56,20 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[10.0.3, 10.0.3]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.osx-arm64",
+              "version": "[10.0.3, 10.0.3]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[10.0.3, 10.0.3]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -68,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.202/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/11.0.100-preview.2.26159.112/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

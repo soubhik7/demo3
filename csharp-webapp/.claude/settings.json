@@ -1,0 +1,25 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd /Users/soubhik/demo3/demo3/csharp-webapp && case \"$CLAUDE_TOOL_INPUT_FILE_PATH\" in *.cs) echo '⚙ C# file changed — running dotnet build...' && dotnet build --no-restore -v q 2>&1 | tail -6 ;; esac"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '💡 Reminder: if you changed appsettings.json, restart the server with: cd csharp-webapp && dotnet run'"
+          }
+        ]
+      }
+    ]
+  }
+}
