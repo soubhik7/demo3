@@ -158,7 +158,11 @@ export async function orchestrate(input: OnboardingInput): Promise<Orchestration
       packageId:         cfg(btp?.valuemapPackageId,     "BTP_VALUEMAP_PACKAGE_ID"),
       partnerId:         state.btpClientId || (input.translation?.receiver_name ?? ""),
       countryCode:       input.country_key,
-      mappingEntries:    [],
+      // Map plant/customer combinations from the translation section → ValueMapping entries
+      mappingEntries:    (input.translation?.source_destination_combinations ?? []).map(c => ({
+        sourceValue: c.value_from,
+        targetValue: c.value_to,
+      })),
     }), outcomes
   );
 
