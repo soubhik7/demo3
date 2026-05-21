@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Run Result — 3PL Onboarding</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ── Header ──────────────────────────────────────────────────────────────── -->
+<header class="page-header">
+  <div class="page-header-inner">
+    <div class="page-header-logo">3PL <span>Onboarding</span></div>
+    <div class="page-header-sub">Mars Navision Integration · EOS Transformation</div>
+    <a href="/" class="btn btn-ghost btn-sm" style="margin-left:auto">← New Run</a>
+  </div>
+</header>
+
+<!-- ── Body ────────────────────────────────────────────────────────────────── -->
+<main class="page-body">
+
+  <!-- Alert box (hidden by default) -->
+  <div id="alert-box" class="alert alert-error mb-4" style="display:none"></div>
+
+  <!-- Result banner (set by JS) -->
+  <div id="result-banner" class="alert mb-4" style="display:none"></div>
+
+  <!-- ── Stat cards ─────────────────────────────────────────────────────── -->
+  <div class="stat-grid mb-4">
+    <div class="stat-card" id="stat-run-id">
+      <div class="stat-label">Run ID</div>
+      <div class="stat-value">—</div>
+    </div>
+    <div class="stat-card" id="stat-country">
+      <div class="stat-label">Country Key</div>
+      <div class="stat-value">—</div>
+    </div>
+    <div class="stat-card" id="stat-status">
+      <div class="stat-label">Status</div>
+      <div class="stat-value">—</div>
+    </div>
+    <div class="stat-card" id="stat-created">
+      <div class="stat-label">Created At</div>
+      <div class="stat-value">—</div>
+    </div>
+  </div>
+
+  <!-- ── Download links ─────────────────────────────────────────────────── -->
+  <div class="dl-card">
+    <div style="font-weight:600;font-size:.9rem;color:var(--gray-800)">Output Files</div>
+    <div class="text-sm mt-2 mb-3">
+      Click to download. The patched YAML is ready to commit; the Excel/CSV can be imported
+      into the SharePoint Translation list.
+    </div>
+    <div class="dl-row" id="dl-row">
+      <!-- Populated by app.js -->
+      <span style="color:var(--gray-400);font-size:.83rem">Loading…</span>
+    </div>
+  </div>
+
+  <!-- ── Console output ─────────────────────────────────────────────────── -->
+  <div class="dl-card">
+    <div style="font-weight:600;font-size:.9rem;color:var(--gray-800)">Console Output</div>
+    <div class="text-sm mt-2">Python script log — green = OK, yellow = SKIP, red = ERROR</div>
+    <div class="console-block">
+      <pre id="console-output">Loading…</pre>
+    </div>
+  </div>
+
+  <!-- ── Step reference ─────────────────────────────────────────────────── -->
+  <div class="dl-card">
+    <div style="font-weight:600;font-size:.9rem;color:var(--gray-800)">10-Step Reference</div>
+    <div class="text-sm mt-2 mb-3">
+      Steps 7+8 run automatically. All others are stubs awaiting external credentials.
+    </div>
+    <table style="width:100%;border-collapse:collapse;font-size:.8rem">
+      <thead>
+        <tr style="background:var(--gray-50);border-bottom:1px solid var(--gray-200)">
+          <th style="text-align:left;padding:.4rem .6rem;color:var(--gray-600)">Step</th>
+          <th style="text-align:left;padding:.4rem .6rem;color:var(--gray-600)">Name</th>
+          <th style="text-align:left;padding:.4rem .6rem;color:var(--gray-600)">Owner</th>
+          <th style="text-align:left;padding:.4rem .6rem;color:var(--gray-600)">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--gray-100)">
+          <td style="padding:.4rem .6rem;color:var(--gray-500)">1</td>
+          <td style="padding:.4rem .6rem">BTP Application Creation</td>
+          <td style="padding:.4rem .6rem;color:var(--gray-400)">Parag Shende</td>
+          <td style="padding:.4rem .6rem"><span style="color:#b45309">⏳ Stub</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--gray-100)">
+          <td style="padding:.4rem .6rem;color:var(--gray-500)">2</td>
+          <td style="padding:.4rem .6rem">BTP Value Mapping</td>
+          <td style="padding:.4rem .6rem;color:var(--gray-400)">Parag Shende</td>
+          <td style="padding:.4rem .6rem"><span style="color:#b45309">⏳ Stub</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--gray-100)">
+          <td style="padding:.4rem .6rem;color:var(--gray-500)">3</td>
+          <td style="padding:.4rem .6rem">Solace Event Portal</td>
+          <td style="padding:.4rem .6rem;color:var(--gray-400)">Rohini Mondal</td>
+          <td style="padding:.4rem .6rem"><span style="color:#b45309">⏳ Stub</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--gray-100)">
+          <td style="padding:.4rem .6rem;color:var(--gray-500)">4</td>
+          <td style="padding:.4rem .6rem">Solace Queue Subscription Patch</td>
+          <td style="padding:.4rem .6rem;color:var(--gray-400)">Rohini Mondal</td>
+          <td style="padding:.4rem .6rem"><span style="color:#b45309">⏳ Stub</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--gray-100)">
+          <td style="padding:.4rem .6rem;color:var(--gray-500)">5</td>
+          <td style="padding:.4rem .6rem">Solace Git / input.json</td>
+          <td style="padding:.4rem .6rem;color:var(--gray-400)">Rohini Mondal + DevOps</td>
+          <td style="padding:.4rem .6rem"><span style="color:#b45309">⏳ Stub</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--gray-100)">
+          <td style="padding:.4rem .6rem;color:var(--gray-500)">6</td>
+          <td style="padding:.4rem .6rem">MuleSoft Feature Branch</td>
+          <td style="padding:.4rem .6rem;color:var(--gray-400)">Sravani Kare + DevOps</td>
+          <td style="padding:.4rem .6rem"><span style="color:#b45309">⏳ Stub</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--gray-100);background:#f0fdf4">
+          <td style="padding:.4rem .6rem;color:var(--gray-500)">7</td>
+          <td style="padding:.4rem .6rem;font-weight:600">MuleSoft YAML Patch</td>
+          <td style="padding:.4rem .6rem;color:var(--gray-400)">—</td>
+          <td style="padding:.4rem .6rem"><span style="color:#15803d">✅ Done</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--gray-100);background:#f0fdf4">
+          <td style="padding:.4rem .6rem;color:var(--gray-500)">8</td>
+          <td style="padding:.4rem .6rem;font-weight:600">MuleSoft Translation Rows</td>
+          <td style="padding:.4rem .6rem;color:var(--gray-400)">—</td>
+          <td style="padding:.4rem .6rem"><span style="color:#15803d">✅ Done</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--gray-100)">
+          <td style="padding:.4rem .6rem;color:var(--gray-500)">9</td>
+          <td style="padding:.4rem .6rem">MuleSoft PR + Notify</td>
+          <td style="padding:.4rem .6rem;color:var(--gray-400)">Sravani Kare</td>
+          <td style="padding:.4rem .6rem"><span style="color:#b45309">⏳ Stub</span></td>
+        </tr>
+        <tr>
+          <td style="padding:.4rem .6rem;color:var(--gray-500)">10</td>
+          <td style="padding:.4rem .6rem">SharePoint / Manual Review Gate</td>
+          <td style="padding:.4rem .6rem;color:var(--gray-400)">—</td>
+          <td style="padding:.4rem .6rem"><span style="color:#1d4ed8">🔵 Manual</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── Next steps ──────────────────────────────────────────────────────── -->
+  <div class="alert alert-warn">
+    <span class="alert-icon">📋</span>
+    <div>
+      <strong>Next manual steps:</strong>
+      <ol style="margin:.4rem 0 0 1.2rem;font-size:.83rem;line-height:1.8">
+        <li>Review the <strong>patched.yaml</strong> diff before committing.</li>
+        <li>Create a feature branch and commit the patched YAML to the MuleSoft repo.</li>
+        <li>Import the <strong>translations.xlsx</strong> rows into the SharePoint <code>TranslationData_TST</code> list.</li>
+        <li>Raise a PR and notify the MuleSoft reviewer (Sravani Kare).</li>
+      </ol>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:1.5rem">
+    <a href="/" class="btn btn-primary">← Run Another Onboarding</a>
+  </div>
+
+</main>
+
+<script src="app.js"></script>
+<script>
+  // Auto-load result when page opens
+  document.addEventListener('DOMContentLoaded', loadResult);
+</script>
+</body>
+</html>

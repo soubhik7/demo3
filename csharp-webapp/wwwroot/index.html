@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3PL Inbound Onboarding — Mars Navision Integration</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ── Header ──────────────────────────────────────────────────────────────── -->
+<header class="page-header">
+  <div class="page-header-inner">
+    <div class="page-header-logo">3PL <span>Onboarding</span></div>
+    <div class="page-header-sub">Mars Navision Integration · EOS Transformation</div>
+    <div id="python-status" class="text-sm" style="margin-left:auto">Checking Python…</div>
+  </div>
+</header>
+
+<!-- ── Loading overlay ─────────────────────────────────────────────────────── -->
+<div id="loading-overlay">
+  <div class="loading-spinner"></div>
+  <div class="loading-text" id="loading-text">Running…</div>
+</div>
+
+<!-- ── Body ────────────────────────────────────────────────────────────────── -->
+<main class="page-body">
+
+  <!-- Alert box (hidden by default) -->
+  <div id="alert-box" class="alert alert-error mb-4" style="display:none"></div>
+
+  <!-- ── Quick-load JSON ────────────────────────────────────────────────── -->
+  <div class="card mb-4">
+    <div class="card-header" style="margin-bottom:.5rem">
+      <div>
+        <div class="card-title">Load from JSON file <span style="font-weight:400;color:var(--gray-400)">(optional)</span></div>
+        <div class="card-sub">Upload an existing onboarding JSON to pre-fill the form below</div>
+      </div>
+    </div>
+    <label class="upload-area">
+      <input type="file" id="json-file-input" accept=".json">
+      📂 Click to browse or drag a JSON file here
+    </label>
+  </div>
+
+  <!-- ── Section 1: Partner Identification ──────────────────────────────── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-badge badge-gray">1</div>
+      <div>
+        <div class="card-title">Partner Identification</div>
+        <div class="card-sub">Basic details for this onboarding request</div>
+      </div>
+    </div>
+
+    <div class="grid-2 mb-4">
+      <div class="field">
+        <label class="field-label" for="country_key">Country Key <span class="req">*</span></label>
+        <input class="field-input" id="country_key" type="text" placeholder="e.g. france"
+               oninput="this.value=this.value.toLowerCase().replace(/[^a-z]/g,'')">
+        <div class="text-sm mt-2">Full nav block key — lowercase letters only</div>
+      </div>
+      <div class="field">
+        <label class="field-label" for="country_code">Country Code</label>
+        <input class="field-input" id="country_code" type="text" placeholder="e.g. fr"
+               oninput="this.value=this.value.toLowerCase()">
+        <div class="text-sm mt-2">Short routing code (2-3 chars)</div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="field">
+        <label class="field-label" for="partner_comment">Partner Comment</label>
+        <input class="field-input" id="partner_comment" type="text"
+               placeholder="e.g. Added France for SPL partner">
+      </div>
+      <div class="field">
+        <label class="field-label" for="created_by">Created By</label>
+        <input class="field-input" id="created_by" type="text" placeholder="Your name">
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Section 2: DEV NAV Config ──────────────────────────────────────── -->
+  <div class="card" style="border-color:#bfdbfe">
+    <div class="card-header">
+      <div class="card-badge badge-blue">2</div>
+      <div>
+        <div class="card-title">DEV NAV Server Configuration</div>
+        <div class="card-sub">Navision SOAP endpoint — DEV environment (base nav block in dev.yaml)</div>
+      </div>
+    </div>
+
+    <div class="grid-2 mb-4">
+      <div class="field">
+        <label class="field-label" for="nav_host">Host <span class="req">*</span></label>
+        <input class="field-input" id="nav_host" type="text" placeholder="azr-xxx1234.mars-ad.net">
+      </div>
+      <div class="field">
+        <label class="field-label" for="nav_company">Company <span class="req">*</span></label>
+        <input class="field-input" id="nav_company" type="text"
+               placeholder="Company(UAT - Royal Canin France)">
+      </div>
+    </div>
+
+    <div class="field mb-4">
+      <label class="field-label" for="nav_soap_path">SOAP Path <span class="req">*</span></label>
+      <input class="field-input" id="nav_soap_path" type="text"
+             placeholder="/sop_fra_uat_01/WS/UAT - Royal Canin France/Codeunit/InterfaceWebServices?wsdl">
+    </div>
+
+    <div class="grid-3 mb-4">
+      <div class="field">
+        <label class="field-label" for="nav_routing_code">Routing Code <span class="req">*</span></label>
+        <input class="field-input" id="nav_routing_code" type="text"
+               placeholder="NAV_FM_IN_UAT_FRA"
+               oninput="this.value=this.value.toUpperCase()">
+      </div>
+      <div class="field">
+        <label class="field-label" for="nav_port">Port</label>
+        <input class="field-input" id="nav_port" type="text" value="7124" placeholder="7124">
+      </div>
+      <div class="field">
+        <label class="field-label" for="nav_soap_port">SOAP Port</label>
+        <input class="field-input" id="nav_soap_port" type="text" value="7124" placeholder="7124">
+      </div>
+    </div>
+
+    <div class="grid-3 mb-4">
+      <div class="field">
+        <label class="field-label" for="nav_username">Username</label>
+        <input class="field-input" id="nav_username" type="text" value="SVC_UAT_MULESOFT">
+      </div>
+      <div class="field">
+        <label class="field-label" for="nav_domain">Domain</label>
+        <input class="field-input" id="nav_domain" type="text" value="mars-ad.net">
+      </div>
+      <div class="field">
+        <label class="field-label" for="nav_service">Service</label>
+        <input class="field-input" id="nav_service" type="text" value="InterfaceWebServices">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="nav_protocol">Protocol</label>
+      <select class="field-input" id="nav_protocol" style="max-width:140px">
+        <option value="https" selected>https</option>
+        <option value="http">http</option>
+      </select>
+    </div>
+
+    <hr class="divider">
+    <label class="checkbox-row">
+      <input type="checkbox" id="nav_use_common_cert" checked>
+      Use common certificate <code>nav-nonprod.jks</code>
+    </label>
+  </div>
+
+  <!-- ── Section 3: TST NAV Override (optional) ─────────────────────────── -->
+  <div class="card" style="border-color:#fed7aa">
+    <div class="card-header">
+      <div class="card-badge badge-orange">T</div>
+      <div>
+        <div class="card-title">TST NAV Config <span style="font-weight:400;color:var(--gray-400)">(optional)</span></div>
+        <div class="card-sub">Server details that differ from DEV for TST — patches tst.yaml</div>
+      </div>
+      <label class="section-toggle">
+        <input type="checkbox" id="include-tst"> Include TST
+      </label>
+    </div>
+    <div class="section-body" id="section-tst">
+      <div class="grid-2 mb-4">
+        <div class="field">
+          <label class="field-label" for="tst_host">Host <span class="req">*</span></label>
+          <input class="field-input" id="tst_host" type="text" placeholder="azr-xxx1234-tst.mars-ad.net">
+        </div>
+        <div class="field">
+          <label class="field-label" for="tst_company">Company <span class="req">*</span></label>
+          <input class="field-input" id="tst_company" type="text"
+                 placeholder="Company(TST - Royal Canin France)">
+        </div>
+      </div>
+      <div class="field mb-4">
+        <label class="field-label" for="tst_soap_path">SOAP Path <span class="req">*</span></label>
+        <input class="field-input" id="tst_soap_path" type="text"
+               placeholder="/sop_fra_tst_01/WS/.../InterfaceWebServices?wsdl">
+      </div>
+      <div class="grid-3">
+        <div class="field">
+          <label class="field-label" for="tst_routing_code">Routing Code <span class="req">*</span></label>
+          <input class="field-input" id="tst_routing_code" type="text"
+                 placeholder="NAV_FM_IN_TST_FRA"
+                 oninput="this.value=this.value.toUpperCase()">
+        </div>
+        <div class="field">
+          <label class="field-label" for="tst_port">Port override</label>
+          <input class="field-input" id="tst_port" type="text" placeholder="7124 (same as DEV)">
+        </div>
+        <div class="field">
+          <label class="field-label" for="tst_username">Username override</label>
+          <input class="field-input" id="tst_username" type="text" placeholder="SVC_UAT_MULESOFT">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Section 4: PROD NAV Override (optional) ────────────────────────── -->
+  <div class="card" style="border-color:#ddd6fe">
+    <div class="card-header">
+      <div class="card-badge badge-purple">P</div>
+      <div>
+        <div class="card-title">PROD NAV Config <span style="font-weight:400;color:var(--gray-400)">(optional)</span></div>
+        <div class="card-sub">Server details that differ from DEV for PROD — patches prod.yaml</div>
+      </div>
+      <label class="section-toggle">
+        <input type="checkbox" id="include-prod"> Include PROD
+      </label>
+    </div>
+    <div class="section-body" id="section-prod">
+      <div class="grid-2 mb-4">
+        <div class="field">
+          <label class="field-label" for="prod_host">Host <span class="req">*</span></label>
+          <input class="field-input" id="prod_host" type="text" placeholder="azr-xxx1234-prod.mars-ad.net">
+        </div>
+        <div class="field">
+          <label class="field-label" for="prod_company">Company <span class="req">*</span></label>
+          <input class="field-input" id="prod_company" type="text"
+                 placeholder="Company(PROD - Royal Canin France)">
+        </div>
+      </div>
+      <div class="field mb-4">
+        <label class="field-label" for="prod_soap_path">SOAP Path <span class="req">*</span></label>
+        <input class="field-input" id="prod_soap_path" type="text"
+               placeholder="/sop_fra_prd_01/WS/.../InterfaceWebServices?wsdl">
+      </div>
+      <div class="grid-3">
+        <div class="field">
+          <label class="field-label" for="prod_routing_code">Routing Code <span class="req">*</span></label>
+          <input class="field-input" id="prod_routing_code" type="text"
+                 placeholder="NAV_FM_IN_PRD_FRA"
+                 oninput="this.value=this.value.toUpperCase()">
+        </div>
+        <div class="field">
+          <label class="field-label" for="prod_port">Port override</label>
+          <input class="field-input" id="prod_port" type="text" placeholder="7124 (same as DEV)">
+        </div>
+        <div class="field">
+          <label class="field-label" for="prod_username">Username override</label>
+          <input class="field-input" id="prod_username" type="text" placeholder="SVC_UAT_MULESOFT">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Section 5: Transaction Types ───────────────────────────────────── -->
+  <div class="card" style="border-color:#c7d2fe">
+    <div class="card-header">
+      <div class="card-badge badge-indigo">5</div>
+      <div>
+        <div class="card-title">Transaction Types</div>
+        <div class="card-sub">Select all transaction types supported by this partner</div>
+      </div>
+    </div>
+    <div class="tx-grid" id="tx-grid">
+      <!-- Built by app.js -->
+    </div>
+  </div>
+
+  <!-- ── Section 6: Translation Configuration ───────────────────────────── -->
+  <div class="card" style="border-color:#bbf7d0">
+    <div class="card-header">
+      <div class="card-badge badge-green">6</div>
+      <div>
+        <div class="card-title">Translation Configuration</div>
+        <div class="card-sub">BTP ClientID, message types, plant/customer mappings, UOM mappings</div>
+      </div>
+    </div>
+
+    <!-- Receiver name -->
+    <div class="field mb-4">
+      <label class="field-label" for="receiver_name">
+        BTP ClientID / Receiver Name <span class="req">*</span>
+      </label>
+      <input class="field-input" id="receiver_name" type="text"
+             placeholder="petc-rc-navision-3plspl-sys">
+      <div class="text-sm mt-2">
+        BTP ClientID from provisioning — also used as Solace 3PL Partner ID
+      </div>
+    </div>
+
+    <!-- Message types -->
+    <div class="mb-4">
+      <div class="field-label">Message Types</div>
+      <div class="msg-pills" id="msg-pills">
+        <!-- Built by app.js -->
+      </div>
+    </div>
+
+    <!-- Plant/Customer combinations -->
+    <div class="mb-4">
+      <div class="field-label">Plant / Customer Combinations</div>
+      <div class="text-sm mb-3">Internal Mars codes → 3PL external codes</div>
+      <div style="overflow-x:auto;border:1px solid var(--gray-200);border-radius:var(--radius)">
+        <table class="combo-table">
+          <thead>
+            <tr>
+              <th>ValueFrom (internal)</th>
+              <th>ValueTo (3PL)</th>
+              <th style="width:40px"></th>
+            </tr>
+          </thead>
+          <tbody id="combos-table">
+            <!-- Rendered by app.js -->
+          </tbody>
+        </table>
+      </div>
+      <button type="button" class="add-row-btn" onclick="addCombo()">+ Add combination</button>
+    </div>
+
+    <!-- UOM mappings -->
+    <div>
+      <div class="field-label">UOM Mappings</div>
+      <div class="text-sm mb-3">Internal Mars units → 3PL units</div>
+      <div style="overflow-x:auto;border:1px solid var(--gray-200);border-radius:var(--radius)">
+        <table class="combo-table">
+          <thead>
+            <tr>
+              <th>Internal UOM</th>
+              <th>3PL UOM</th>
+              <th style="width:40px"></th>
+            </tr>
+          </thead>
+          <tbody id="uoms-table">
+            <!-- Rendered by app.js -->
+          </tbody>
+        </table>
+      </div>
+      <button type="button" class="add-row-btn" onclick="addUom()">+ Add UOM mapping</button>
+    </div>
+  </div>
+
+  <!-- ── Submit ──────────────────────────────────────────────────────────── -->
+  <div class="submit-footer">
+    <div class="submit-footer-title">Run Mode</div>
+    <div class="submit-footer-desc">
+      <strong>YAML + Translation</strong> patches dev.yaml and generates translation rows (Steps 7 &amp; 8 — implemented).
+      <strong>Full Orchestration</strong> also runs BTP / Solace / GitHub steps — currently stubbed and skip gracefully.
+    </div>
+    <div class="submit-actions">
+      <div class="submit-note">
+        Will write: <code>patched.yaml</code>, <code>translations.xlsx</code>, <code>translations.csv</code>
+      </div>
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+        <button class="btn btn-primary" id="btn-run" type="button">
+          ▶&nbsp; YAML + Translation
+        </button>
+        <button class="btn btn-teal" id="btn-orchestrate" type="button">
+          ⚙&nbsp; Full Orchestration (10 Steps)
+        </button>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

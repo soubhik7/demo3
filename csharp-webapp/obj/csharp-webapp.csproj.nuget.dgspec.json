@@ -1,0 +1,86 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/soubhik/demo3/demo3/csharp-webapp/csharp-webapp.csproj": {}
+  },
+  "projects": {
+    "/Users/soubhik/demo3/demo3/csharp-webapp/csharp-webapp.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/soubhik/demo3/demo3/csharp-webapp/csharp-webapp.csproj",
+        "projectName": "OnboardingApp",
+        "projectPath": "/Users/soubhik/demo3/demo3/csharp-webapp/csharp-webapp.csproj",
+        "packagesPath": "/Users/soubhik/.nuget/packages/",
+        "outputPath": "/Users/soubhik/demo3/demo3/csharp-webapp/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/soubhik/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "framework": "net8.0",
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "11.0.100"
+      },
+      "frameworks": {
+        "net8.0": {
+          "framework": "net8.0",
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.24, 8.0.24]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.osx-arm64",
+              "version": "[8.0.24, 8.0.24]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.24, 8.0.24]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/11.0.100-preview.2.26159.112/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
