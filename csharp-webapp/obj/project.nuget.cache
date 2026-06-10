@@ -1,12 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "n7y39YP6evM=",
+  "dgSpecHash": "AOaJqnfTFSg=",
   "success": true,
-  "projectFilePath": "/Users/soubhik/demo3/demo3/csharp-webapp/csharp-webapp.csproj",
-  "expectedPackageFiles": [
-    "/Users/soubhik/.nuget/packages/microsoft.netcore.app.ref/10.0.3/microsoft.netcore.app.ref.10.0.3.nupkg.sha512",
-    "/Users/soubhik/.nuget/packages/microsoft.aspnetcore.app.ref/10.0.3/microsoft.aspnetcore.app.ref.10.0.3.nupkg.sha512",
-    "/Users/soubhik/.nuget/packages/microsoft.netcore.app.host.osx-arm64/10.0.3/microsoft.netcore.app.host.osx-arm64.10.0.3.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Users\\SoubhikMukhopadhyay\\source\\repos\\solace-automation\\solace-auto\\3pl-automation\\csharp-webapp\\csharp-webapp.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }
